@@ -46,7 +46,7 @@
                   </TableView>
                </children>
             </VBox>
-            <Button fx:id="addButton" mnemonicParsing="false" text="Добавить" onAction="#handleAddButtonAction">
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Добавить">
                <padding>
                   <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                </padding>
