@@ -14,7 +14,7 @@ public class MusicPlayerApplication extends Application {
         Scene scene = new Scene(new Pane());
 
         ViewSwitcher.setScene(scene);
-        ViewSwitcher.switchTo(View.PLAYLISTS);
+        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
 
         stage.setTitle("Hello!");
         stage.setScene(scene);

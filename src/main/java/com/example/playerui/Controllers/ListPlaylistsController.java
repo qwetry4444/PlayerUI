@@ -1,8 +1,10 @@
-package com.example.playerui;
+package com.example.playerui.Controllers;
 
-import com.example.MusicPlayer.MusicPlayer;
 import com.example.MusicPlayer.Playlist;
-import javafx.collections.FXCollections;
+import com.example.playerui.DataSingleton;
+import com.example.playerui.MusicPlayerApplication;
+import com.example.playerui.View;
+import com.example.playerui.ViewSwitcher;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,21 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class PlaylistsController implements Initializable {
+public class ListPlaylistsController implements Initializable {
 
     @FXML
     private Button addButton;
@@ -38,28 +38,42 @@ public class PlaylistsController implements Initializable {
     @FXML
     private TableView<Playlist> playlistsTable;
 
-    DataSingleton data = DataSingleton.getInstance();
+    DataSingleton data;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        data = DataSingleton.getInstance();
+
         playlistName.setCellValueFactory(new PropertyValueFactory<>("name"));
         playlistsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-
-        MusicPlayer musicPlayer = new MusicPlayer();
-        data.setMusicPlayer(musicPlayer);
-
         ObservableList<Playlist> playlists = playlistsTable.getItems();
-        List<Playlist> loadedPlaylists = musicPlayer.getPlaylists();
-        playlists.addAll(musicPlayer.getPlaylists());
+        playlists.clear();
+
+        List<Playlist> loadedPlaylists = data.musicPlayer().getPlaylists();
+
+        playlists.addAll(loadedPlaylists);
+
+
+
         playlistsTable.setItems(playlists);
+
     }
 
     @FXML
     void handleDeleteButtonAction(ActionEvent event) {
         List<Playlist> selectedPlaylists = playlistsTable.getSelectionModel().getSelectedItems();
+
+        List<Integer> playlistsId = new ArrayList<>();
+        for (Playlist playlist : selectedPlaylists){
+            playlistsId.add(playlist.getId());
+        }
+
+        data.musicPlayer().deleteAllPlaylistsById(playlistsId);
         playlistsTable.getItems().removeAll(selectedPlaylists);
+        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
+
     }
 
     @FXML

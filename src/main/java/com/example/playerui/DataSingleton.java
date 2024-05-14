@@ -5,6 +5,10 @@ import com.example.MusicPlayer.MusicPlayer;
 public class DataSingleton {
     private  static  final DataSingleton instance = new DataSingleton();
 
+    public DataSingleton(){
+        musicPlayer = new MusicPlayer();
+    }
+
     private MusicPlayer musicPlayer;
 
     private int PlayListId;

@@ -16,4 +16,6 @@ module com.example.playerui {
 
 
     exports com.example.playerui;
+    exports com.example.playerui.Controllers;
+    opens com.example.playerui.Controllers to javafx.fxml;
 }

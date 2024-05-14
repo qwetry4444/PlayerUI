@@ -101,10 +101,20 @@ public class MusicPlayer {
         for (Playlist playlist : playlists){
             if (playlist.getId() == id){
                 playlists.remove(playlist);
+                playlistCount--;
                 return 0;
             }
         }
         return 1;
+    }
+
+    public void deleteAllPlaylistsById(List<Integer> ids){
+        for (Playlist playlist : playlists){
+            if (ids.contains(playlist.getId())){
+                deletePlaylistById(playlist.getId());
+                //playlists.remove(playlist);
+            }
+        }
     }
 
     public int addSongToPlaylistById(int playlistId, int songId){
@@ -205,6 +215,7 @@ public class MusicPlayer {
         if (files != null){
             for (File file : files){
                 playlists.add(loadPlaylistFromFile(file));
+                playlistCount++;
             }
         }
     }
