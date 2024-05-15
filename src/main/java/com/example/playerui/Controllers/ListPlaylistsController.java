@@ -12,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -38,6 +35,7 @@ public class ListPlaylistsController implements Initializable {
     @FXML
     private TableView<Playlist> playlistsTable;
 
+
     DataSingleton data;
 
 
@@ -56,10 +54,23 @@ public class ListPlaylistsController implements Initializable {
         playlists.addAll(loadedPlaylists);
 
 
+        playlistsTable.setRowFactory( tv -> {
+            TableRow<Playlist> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Playlist rowData = row.getItem();
+                    data.setPlaylistId(rowData.getId());
+                    ViewSwitcher.switchTo(View.PLAYLIST);
+                }
+            });
+            return row ;
+        });
 
         playlistsTable.setItems(playlists);
 
     }
+
+
 
     @FXML
     void handleDeleteButtonAction(ActionEvent event) {
