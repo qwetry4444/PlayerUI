@@ -74,7 +74,7 @@ public class ListPlaylistsController implements Initializable {
 
     @FXML
     void handleDeleteButtonAction(ActionEvent event) {
-        List<Playlist> selectedPlaylists = playlistsTable.getSelectionModel().getSelectedItems();
+        ObservableList<Playlist> selectedPlaylists = playlistsTable.getSelectionModel().getSelectedItems();
 
         List<Integer> playlistsId = new ArrayList<>();
         for (Playlist playlist : selectedPlaylists){
@@ -83,8 +83,6 @@ public class ListPlaylistsController implements Initializable {
 
         data.musicPlayer().deleteAllPlaylistsById(playlistsId);
         playlistsTable.getItems().removeAll(selectedPlaylists);
-        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
-
     }
 
     @FXML

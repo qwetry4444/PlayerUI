@@ -31,6 +31,13 @@ public class Playlist {
         return songsId.remove(songId);
     }
 
+    public boolean deleteAllSongs(List<Integer> songsIdToDelete){
+        for (int songId : songsIdToDelete){
+            deleteSong(songId);
+        }
+        return true;
+    }
+
     public int getFirstSongId(){ return songsId.getFirst(); }
 
     public int getNextSongId(int currentSongId){

@@ -5,6 +5,8 @@ import com.example.MusicPlayer.Song;
 import com.example.playerui.DataSingleton;
 import com.example.playerui.View;
 import com.example.playerui.ViewSwitcher;
+import javafx.beans.InvalidationListener;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,9 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class PlaylistController implements Initializable {
 
@@ -71,7 +71,15 @@ public class PlaylistController implements Initializable {
     }
     @FXML
     void handleDeleteButtonAction(ActionEvent event) {
+        ObservableList<Song> selectedSongs = songsTable.getSelectionModel().getSelectedItems();
+        //Song selectedSong = songsTable.getSelectionModel().getSelectedItem();
+        List<Integer> selectedSongsIds = new ArrayList<>();
+        for (Song song : selectedSongs){
+            selectedSongsIds.add(song.getId());
+        }
 
+        playlist.deleteAllSongs(selectedSongsIds);
+        songsTable.getItems().removeAll(selectedSongs);
     }
 
     @FXML
