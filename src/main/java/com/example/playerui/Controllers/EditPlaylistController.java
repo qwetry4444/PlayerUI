@@ -1,10 +1,6 @@
-package com.example.playerui.Controllers;
+package com.example.playerui;
 
-import com.example.MusicPlayer.Playlist;
 import com.example.MusicPlayer.Song;
-import com.example.playerui.DataSingleton;
-import com.example.playerui.View;
-import com.example.playerui.ViewSwitcher;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,18 +8,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class AddPlaylistFormController implements Initializable {
+public class EditPlaylistController implements Initializable {
 
     @FXML
-    private Button addButton;
+    private Button backButton;
 
     @FXML
     private TextField playlistNameField;
+
+    @FXML
+    private Button saveButton;
 
     @FXML
     private TableView<Song> songsTable;
@@ -33,7 +31,6 @@ public class AddPlaylistFormController implements Initializable {
     private TableColumn<Song, String> songName;
     @FXML
     private TableColumn<Song, String> songArtist;
-
     DataSingleton data;
 
     @Override
@@ -51,15 +48,15 @@ public class AddPlaylistFormController implements Initializable {
         songs.addAll(loadedSongs);
         songsTable.setItems(songs);
     }
+
     @FXML
     void handleBackButtonAction(ActionEvent event) {
         ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
     }
 
     @FXML
-    void handleAddButtonAction(ActionEvent event) throws IOException {
-        List<Song> selectedSongs = songsTable.getSelectionModel().getSelectedItems();
-        data.musicPlayer().addPlaylist(playlistNameField.getText(), selectedSongs);
-        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
+    void handleSaveButtonAction(ActionEvent event) {
+
     }
+
 }

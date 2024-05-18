@@ -1,7 +1,7 @@
 package com.example.playerui;
 
 public enum View {
-    LIST_PLAYLISTS("list_playlists-view.fxml"),
+    LIST_PLAYLISTS("listPlaylists-view.fxml"),
     PLAYLIST("playlist-view.fxml"),
     ADD_PLAYLIST_FORM("addPlaylistForm-view.fxml");
 

@@ -14,11 +14,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ListPlaylistsController implements Initializable {
@@ -48,11 +50,13 @@ public class ListPlaylistsController implements Initializable {
 
         ObservableList<Playlist> playlists = playlistsTable.getItems();
         playlists.clear();
-
         List<Playlist> loadedPlaylists = data.musicPlayer().getPlaylists();
-
         playlists.addAll(loadedPlaylists);
 
+        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/plus.png")).toExternalForm());
+        imageView.setFitHeight(32);
+        imageView.setFitWidth(32);
+        addButton.setGraphic(imageView);
 
         playlistsTable.setRowFactory( tv -> {
             TableRow<Playlist> row = new TableRow<>();
@@ -80,9 +84,9 @@ public class ListPlaylistsController implements Initializable {
         for (Playlist playlist : selectedPlaylists){
             playlistsId.add(playlist.getId());
         }
+        playlistsTable.getItems().removeAll(selectedPlaylists);
 
         data.musicPlayer().deleteAllPlaylistsById(playlistsId);
-        playlistsTable.getItems().removeAll(selectedPlaylists);
     }
 
     @FXML

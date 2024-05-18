@@ -109,11 +109,8 @@ public class MusicPlayer {
     }
 
     public void deleteAllPlaylistsById(List<Integer> ids){
-        for (Playlist playlist : playlists){
-            if (ids.contains(playlist.getId())){
-                deletePlaylistById(playlist.getId());
-                //playlists.remove(playlist);
-            }
+        for (int id : ids){
+            deletePlaylistById(id);
         }
     }
 

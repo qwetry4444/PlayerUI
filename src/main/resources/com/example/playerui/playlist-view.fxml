@@ -12,11 +12,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.Controllers.PlaylistController">
    <children>
-      <Button layoutX="20.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleBackButtonAction" text="Назад" />
       <VBox alignment="CENTER" layoutX="46.0" layoutY="36.0" prefHeight="519.0" prefWidth="272.0" spacing="32.0">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="90.0" prefWidth="272.0" spacing="16.0">
+            <HBox prefHeight="90.0" prefWidth="240.0" spacing="48.0">
                <children>
+                  <Button mnemonicParsing="false" onAction="#handleBackButtonAction" text="Назад" />
                   <Label text="Плейлист">
                      <font>
                         <Font name="Arial" size="20.0" />
@@ -29,6 +29,11 @@
                   </Label>
                </children>
             </HBox>
+            <Label text="Список песен">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
             <TableView fx:id="songsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="221.0" prefWidth="288.0">
                <columns>
                   <TableColumn fx:id="songId" prefWidth="46.0" text="id" />
