@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Playlist {
     private final int id;
-    private final String name;
+    private String name;
     public List<Integer> songsId;
 
 
@@ -18,6 +18,7 @@ public class Playlist {
     public String getName() {
         return name;
     }
+    public void setName(String name) { this.name = name; }
     public int getId() {
         return id;
     }
@@ -25,6 +26,12 @@ public class Playlist {
 
     public void addSong(int songId) {
         songsId.add(songId);
+    }
+
+    public void addAllSongs(List<Song> songs){
+        for (Song song : songs){
+            addSong(song.getId());
+        }
     }
 
     public boolean deleteSong(Integer songId){

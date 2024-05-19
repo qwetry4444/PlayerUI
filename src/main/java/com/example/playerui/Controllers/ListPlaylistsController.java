@@ -53,10 +53,16 @@ public class ListPlaylistsController implements Initializable {
         List<Playlist> loadedPlaylists = data.musicPlayer().getPlaylists();
         playlists.addAll(loadedPlaylists);
 
-        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/plus.png")).toExternalForm());
-        imageView.setFitHeight(32);
-        imageView.setFitWidth(32);
-        addButton.setGraphic(imageView);
+        ImageView plusImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/plus.png")).toExternalForm());
+        plusImage.setFitHeight(32);
+        plusImage.setFitWidth(32);
+        addButton.setGraphic(plusImage);
+
+        ImageView deleteImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/bucket.png")).toExternalForm());
+        deleteImage.setFitHeight(32);
+        deleteImage.setFitWidth(32);
+        deleteButton.setGraphic(deleteImage);
+
 
         playlistsTable.setRowFactory( tv -> {
             TableRow<Playlist> row = new TableRow<>();

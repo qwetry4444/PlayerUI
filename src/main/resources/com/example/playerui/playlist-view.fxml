@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,21 +13,36 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.Controllers.PlaylistController">
    <children>
-      <VBox alignment="CENTER" layoutX="46.0" layoutY="36.0" prefHeight="519.0" prefWidth="272.0" spacing="32.0">
+      <VBox alignment="CENTER" layoutX="22.0" layoutY="35.0" prefHeight="519.0" prefWidth="319.0" spacing="32.0">
          <children>
-            <HBox prefHeight="90.0" prefWidth="240.0" spacing="48.0">
+            <HBox alignment="CENTER" prefHeight="52.0" prefWidth="319.0" spacing="24.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#handleBackButtonAction" text="Назад" />
-                  <Label text="Плейлист">
+                  <Button mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="25.0" prefWidth="60.0" text="Назад" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="12.0">
+                     <children>
+                        <Label prefHeight="23.0" prefWidth="92.0" text="Плейлист">
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="playlistName" prefHeight="23.0" prefWidth="85.0">
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Button fx:id="editButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#handleEditButtonAction" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: none;" text="Редактировать">
                      <font>
-                        <Font name="Arial" size="20.0" />
+                        <Font size="18.0" />
                      </font>
-                  </Label>
-                  <Label fx:id="playlistName">
-                     <font>
-                        <Font name="Arial" size="20.0" />
-                     </font>
-                  </Label>
+                     <padding>
+                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                     </padding>
+                     <graphic>
+                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
                </children>
             </HBox>
             <Label text="Список песен">
@@ -34,23 +50,18 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TableView fx:id="songsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="221.0" prefWidth="288.0">
+            <TableView fx:id="songsTable" maxHeight="1.7976931348623157E308" maxWidth="280.0" minWidth="-Infinity" prefHeight="221.0" prefWidth="200.0">
                <columns>
                   <TableColumn fx:id="songId" prefWidth="46.0" text="id" />
                   <TableColumn fx:id="songName" prefWidth="138.0" text="Название" />
                   <TableColumn fx:id="songArtist" prefWidth="101.0" text="Исполнитель" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
-            <HBox spacing="32.0">
+            <HBox alignment="TOP_CENTER" spacing="32.0">
                <children>
-                  <Button fx:id="deleteButton" minWidth="120.0" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Удалить">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                  </Button>
                   <Button fx:id="playButton" minWidth="120.0" mnemonicParsing="false" text="Включить">
                      <font>
                         <Font size="18.0" />

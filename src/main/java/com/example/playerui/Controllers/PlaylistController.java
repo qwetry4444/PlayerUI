@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.*;
@@ -22,8 +23,9 @@ public class PlaylistController implements Initializable {
     @FXML
     private Button backButton;
 
+
     @FXML
-    private Button deleteButton;
+    private Button editButton;
 
     @FXML
     private Button playButton;
@@ -36,11 +38,11 @@ public class PlaylistController implements Initializable {
     @FXML
     private TableView<Song> songsTable;
     @FXML
-    private TableColumn<Playlist, Integer> songId;
+    private TableColumn<Song, Integer> songId;
     @FXML
-    private TableColumn<Playlist, String> songName;
+    private TableColumn<Song, String> songName;
     @FXML
-    private TableColumn<Playlist, String> songArtist;
+    private TableColumn<Song, String> songArtist;
 
     DataSingleton data;
 
@@ -63,28 +65,34 @@ public class PlaylistController implements Initializable {
         for (int songId : playlistSongsIds){
             songs.add(data.musicPlayer().getSongById(songId));
         }
-
         tableSongs.addAll(songs);
+
+        ImageView editImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/pencil.png")).toExternalForm());
+        editImage.setFitHeight(24);
+        editImage.setFitWidth(24);
+        editButton.setGraphic(editImage);
 
         playlistName.setText(playlist.getName());
 
     }
-    @FXML
-    void handleDeleteButtonAction(ActionEvent event) {
-        ObservableList<Song> selectedSongs = songsTable.getSelectionModel().getSelectedItems();
-        //Song selectedSong = songsTable.getSelectionModel().getSelectedItem();
-        List<Integer> selectedSongsIds = new ArrayList<>();
-        for (Song song : selectedSongs){
-            selectedSongsIds.add(song.getId());
-        }
-
-        playlist.deleteAllSongs(selectedSongsIds);
-        songsTable.getItems().removeAll(selectedSongs);
-    }
+//    @FXML
+//    void handleDeleteButtonAction(ActionEvent event) {
+//        ObservableList<Song> selectedSongs = songsTable.getSelectionModel().getSelectedItems();
+//        //Song selectedSong = songsTable.getSelectionModel().getSelectedItem();
+//        List<Integer> selectedSongsIds = new ArrayList<>();
+//        for (Song song : selectedSongs){
+//            selectedSongsIds.add(song.getId());
+//        }
+//
+//        playlist.deleteAllSongs(selectedSongsIds);
+//        songsTable.getItems().removeAll(selectedSongs);
+//    }
 
     @FXML
     void handleBackButtonAction(ActionEvent event) {
         ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
     }
 
+    @FXML
+    void handleEditButtonAction(ActionEvent event){ ViewSwitcher.switchTo(View.EDIT_PLAYLIST); }
 }

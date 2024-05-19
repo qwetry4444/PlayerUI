@@ -6,13 +6,13 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="628.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.EditPlaylistView">
+<AnchorPane prefHeight="628.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.EditPlaylistController">
    <children>
       <HBox alignment="CENTER" layoutX="24.0" layoutY="38.0" prefHeight="49.0" prefWidth="320.0" spacing="32.0">
          <children>
@@ -24,7 +24,7 @@
             </Label>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="49.0" layoutY="193.0" prefHeight="365.0" prefWidth="288.0">
+      <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="129.0" prefHeight="430.0" prefWidth="308.0" spacing="12.0">
          <children>
             <VBox prefHeight="64.0" prefWidth="282.0">
                <children>
@@ -32,19 +32,49 @@
                   <TextField fx:id="playlistNameField" maxWidth="180.0" minHeight="-Infinity" minWidth="100.0" prefHeight="25.0" prefWidth="100.0" />
                </children>
             </VBox>
-            <VBox prefHeight="162.0" prefWidth="282.0">
+            <VBox alignment="TOP_CENTER" prefHeight="275.0" prefWidth="308.0" spacing="12.0">
                <children>
-                  <Label text="Добавить песни" />
-                  <TableView fx:id="songsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="221.0" prefWidth="288.0">
-                     <columns>
-                        <TableColumn fx:id="songId" prefWidth="46.0" text="id" />
-                        <TableColumn fx:id="songName" prefWidth="138.0" text="Название" />
-                        <TableColumn fx:id="songArtist" prefWidth="101.0" text="Исполнитель" />
-                     </columns>
-                     <VBox.margin>
-                        <Insets bottom="32.0" />
-                     </VBox.margin>
-                  </TableView>
+                  <Label text="Песни плейлиста">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <HBox alignment="CENTER" prefHeight="239.0" prefWidth="308.0" spacing="12.0">
+                     <children>
+                        <TableView fx:id="songsTable" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="218.0" prefWidth="258.0">
+                           <columns>
+                              <TableColumn fx:id="songId" prefWidth="46.0" text="id" />
+                              <TableColumn fx:id="songName" prefWidth="105.0" text="Название" />
+                              <TableColumn fx:id="songArtist" prefWidth="106.0" text="Исполнитель" />
+                           </columns>
+                        </TableView>
+                        <VBox prefHeight="193.0" prefWidth="34.0" spacing="12.0">
+                           <children>
+                              <Button fx:id="addButton" alignment="CENTER" contentDisplay="GRAPHIC_ONLY" maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#handleAddButtonAction" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: none;" text="Добавить">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                              <Button fx:id="deleteButton" contentDisplay="GRAPHIC_ONLY" maxHeight="32.0" maxWidth="32.0" minHeight="32.0" minWidth="32.0" mnemonicParsing="false" onAction="#handleDeleteButtonAction" prefHeight="32.0" prefWidth="32.0" style="-fx-background-color: none;" styleClass="none" text="Удалить">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                                 </padding>
+                                 <graphic>
+                                    <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Сохранить">

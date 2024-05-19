@@ -2,6 +2,7 @@ package com.example.MusicPlayer;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,6 +28,14 @@ public class MusicPlayer {
 
     public List<Song> getSongs() {
         return songs;
+    }
+
+    public List<Integer> getSongsId(){
+        List<Integer> songsId = new ArrayList<>();
+        for (Song song : songs){
+            songsId.add(song.getId());
+        }
+        return songsId;
     }
 
     public MusicPlayer(){
@@ -128,6 +137,13 @@ public class MusicPlayer {
             playlist.addSong(songId);
             return 0;
         }
+    }
+
+    public int deleteAllSongsFromPlaylistByIds(List<Integer> songsIds, int playlistId){
+        for (int songId : songsIds){
+            deleteSongFromPlaylistById(playlistId, songId);
+        }
+        return 1;
     }
 
     public int deleteSongFromPlaylistById(int playlistId, int songId){
@@ -276,6 +292,26 @@ public class MusicPlayer {
             }
         }
         return null;
+    }
+
+    public List<Integer> getSongsNotInPlaylistId(int playlistId){
+        List<Integer> playlistSongs = getPlaylistById(playlistId).getSongsId();
+        List<Integer> notInPlaylistSongs = getSongsId();
+        for (int playlistSongId : playlistSongs){
+            notInPlaylistSongs.remove(playlistSongId);
+        }
+        return notInPlaylistSongs;
+    }
+
+    public List<Song> getNotInPlaylistSongs(int playlistId){
+        List<Integer> playlistSongs = getPlaylistById(playlistId).getSongsId();
+        List<Song> allSongs = getSongs();
+        List<Song> notInPlaylistSongs = new ArrayList<Song>(allSongs);
+        //Collections.copy(allSongs, notInPlaylistSongs);
+        for (int playlistSongId : playlistSongs){
+            notInPlaylistSongs.remove(getSongById(playlistSongId));
+        }
+        return notInPlaylistSongs;
     }
 
 

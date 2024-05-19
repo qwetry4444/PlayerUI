@@ -20,7 +20,7 @@ public class MusicPlayerApplication extends Application {
         ViewSwitcher.setScene(scene);
         ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("Music player");
         stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/icon.png"))));
         stage.setScene(scene);
         stage.show();
