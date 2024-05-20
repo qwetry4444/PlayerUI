@@ -10,11 +10,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -52,6 +55,45 @@ public class PlaylistController implements Initializable {
         playlistId = data.getPlaylistId();
         playlist = data.musicPlayer().getPlaylistById(playlistId);
 
+        setSongsTable();
+        handleDoubleClickOnSong();
+
+
+        ImageView editImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/pencil.png")).toExternalForm());
+        editImage.setFitHeight(24);
+        editImage.setFitWidth(24);
+        editButton.setGraphic(editImage);
+
+        playlistName.setText(playlist.getName());
+
+    }
+
+    void handleDoubleClickOnSong() {
+        songsTable.setRowFactory( tv -> {
+            TableRow<Song> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Song rowData = row.getItem();
+                    data.musicPlayer().playPlaylist(playlistId);
+                    data.musicPlayer().playSong(rowData.getId());
+
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("root.fxml"));
+                    try {
+                        Parent root = loader.load();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    RootController rootController = loader.getController();
+                    rootController.setCurrentSong(rowData);
+                }
+            });
+            return row ;
+        });
+    }
+
+    void setSongsTable(){
         songId.setCellValueFactory(new PropertyValueFactory<>("id"));
         songName.setCellValueFactory(new PropertyValueFactory<>("name"));
         songArtist.setCellValueFactory(new PropertyValueFactory<>("artist"));
@@ -66,14 +108,6 @@ public class PlaylistController implements Initializable {
             songs.add(data.musicPlayer().getSongById(songId));
         }
         tableSongs.addAll(songs);
-
-        ImageView editImage = new ImageView(Objects.requireNonNull(getClass().getResource("/images/pencil.png")).toExternalForm());
-        editImage.setFitHeight(24);
-        editImage.setFitWidth(24);
-        editButton.setGraphic(editImage);
-
-        playlistName.setText(playlist.getName());
-
     }
 //    @FXML
 //    void handleDeleteButtonAction(ActionEvent event) {
