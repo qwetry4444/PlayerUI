@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="744.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.Controllers.RootController">
+   <bottom>
+      <VBox prefHeight="116.0" prefWidth="363.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="145.0" spacing="22.0">
+                     <children>
+                        <Button fx:id="playPrevButton" contentDisplay="GRAPHIC_ONLY" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" onAction="#HandlePlayPrevButtonAction" prefHeight="48.0" prefWidth="48.0" text="Button">
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                        <Button fx:id="playPauseButtons" contentDisplay="GRAPHIC_ONLY" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" onAction="#HandlePlayPauseButtonAction" prefHeight="48.0" prefWidth="48.0" text="Button">
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </Button>
+                        <Button fx:id="playNextButton" contentDisplay="GRAPHIC_ONLY" lineSpacing="12.0" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" onAction="#HandlePlayNextButtonAction" prefHeight="48.0" prefWidth="48.0" text="Button">
+                           <graphic>
+                              <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="63.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <Button fx:id="repeatButton" contentDisplay="GRAPHIC_ONLY" maxHeight="48.0" maxWidth="48.0" minHeight="48.0" minWidth="48.0" mnemonicParsing="false" onAction="#HandleRepeatButtonAction" prefHeight="48.0" prefWidth="48.0" text="Button">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="48.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="songName" text="Название песни" />
+                  <Label fx:id="songArtist" text="Автор" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

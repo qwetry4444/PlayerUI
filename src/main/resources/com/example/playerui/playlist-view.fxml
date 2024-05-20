@@ -13,7 +13,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="363.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.playerui.Controllers.PlaylistController">
    <children>
-      <VBox alignment="CENTER" layoutX="22.0" layoutY="35.0" prefHeight="519.0" prefWidth="319.0" spacing="32.0">
+      <VBox alignment="CENTER" layoutX="22.0" layoutY="35.0" prefHeight="519.0" prefWidth="319.0" spacing="22.0">
          <children>
             <HBox alignment="CENTER" prefHeight="52.0" prefWidth="319.0" spacing="24.0">
                <children>
