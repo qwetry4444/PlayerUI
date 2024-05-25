@@ -59,6 +59,19 @@ public class MusicPlayer {
         return 0;
     }
 
+    public int playPlaylistSong(int playlistId, int songId){
+        currentPlaylistId = playlistId;
+        currentPlaylist = getPlaylistById(playlistId);
+        currentSongId = songId;
+        currentSong = getSongById(songId);
+        if (currentPlaylist == null || currentSong == null || !currentPlaylist.getSongsId().contains(currentSongId)){
+            return 1;
+        }
+        playPlaylist(currentPlaylistId);
+        playSong(currentSongId);
+        return 0;
+    }
+
     public int playSong(int songId){
         currentSongId = songId;
         currentSong = getSongById(songId);

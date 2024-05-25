@@ -1,5 +1,6 @@
 package com.example.playerui;
 
+import com.example.playerui.Controllers.RootController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,12 +22,12 @@ public class ViewSwitcher {
         ViewSwitcher.mainPane = pane;
     }
 
-    public static void switchTo(View view){
+    public static void switchTo(View view) {
         if (scene == null){
             return;
         }
         try {
-            Parent page = FXMLLoader.load(ViewSwitcher.class.getResource(view.getFileName()));
+            Parent page = FXMLLoader.load(Objects.requireNonNull(ViewSwitcher.class.getResource(view.getFileName())));
             mainPane.setCenter(page);
 
             //scene.setRoot(root);

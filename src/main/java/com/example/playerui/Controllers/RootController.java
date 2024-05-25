@@ -1,5 +1,6 @@
 package com.example.playerui.Controllers;
 
+import com.example.MusicPlayer.Playlist;
 import com.example.MusicPlayer.Song;
 import com.example.playerui.DataSingleton;
 import javafx.event.ActionEvent;
@@ -71,16 +72,17 @@ public class RootController implements Initializable {
         return imageView;
     }
 
-    void setCurrentSong(Song song) {
+    void setCurrentSong(Song song, int playlistId) {
         if (song != null) {
             songName.setText(song.getName());
             songArtist.setText(song.getArtist());
+            data.musicPlayer().playPlaylistSong(playlistId, song.getId());
         }
     }
 
     @FXML
     void HandlePlayNextButtonAction(ActionEvent event) {
-
+        System.out.println("\n\n\n\n\n\n\n\n||||||||||||||||||||||||||||||||");
     }
 
     @FXML

@@ -21,15 +21,11 @@ public class DataSingleton {
         return PlayListId;
     }
 
-    public void setPlaylistId(int playlistId){
-        this.PlayListId = playlistId;
-    }
+    public void setPlaylistId(int playlistId){ this.PlayListId = playlistId; }
 
     public MusicPlayer musicPlayer(){
         return musicPlayer;
     }
 
-    public void setMusicPlayer(MusicPlayer musicPlayer) {
-        this.musicPlayer = musicPlayer;
-    }
+    public void setMusicPlayer(MusicPlayer musicPlayer) { this.musicPlayer = musicPlayer; }
 }

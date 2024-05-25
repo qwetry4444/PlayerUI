@@ -69,29 +69,34 @@ public class PlaylistController implements Initializable {
     }
 
     void handleDoubleClickOnSong() {
-        songsTable.setRowFactory( tv -> {
+        songsTable.setRowFactory(tv -> {
             TableRow<Song> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
                     Song rowData = row.getItem();
-                    data.musicPlayer().playPlaylist(playlistId);
-                    data.musicPlayer().playSong(rowData.getId());
-
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("root.fxml"));
+                    data.musicPlayer().playPlaylistSong(playlistId, rowData.getId());
                     try {
-                        Parent root = loader.load();
+                        playSong(rowData);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-
-
-                    RootController rootController = loader.getController();
-                    rootController.setCurrentSong(rowData);
                 }
             });
-            return row ;
+            return row;
         });
     }
+
+    @FXML
+    void playSong(Song song) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/playerui/root.fxml"));
+        Parent root = loader.load();
+
+        if (root != null) {
+            RootController rootController = loader.getController();
+            rootController.setCurrentSong(song, playlistId);
+        }
+    }
+
 
     void setSongsTable(){
         songId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -123,9 +128,7 @@ public class PlaylistController implements Initializable {
 //    }
 
     @FXML
-    void handleBackButtonAction(ActionEvent event) {
-        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
-    }
+    void handleBackButtonAction(ActionEvent event) { ViewSwitcher.switchTo(View.LIST_PLAYLISTS); }
 
     @FXML
     void handleEditButtonAction(ActionEvent event){ ViewSwitcher.switchTo(View.EDIT_PLAYLIST); }
