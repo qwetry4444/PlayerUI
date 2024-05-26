@@ -22,6 +22,10 @@ public class ViewSwitcher {
         ViewSwitcher.mainPane = pane;
     }
 
+    public static void setBottomPane(Parent page){
+        mainPane.setBottom(page);
+    }
+
     public static void switchTo(View view) {
         if (scene == null){
             return;

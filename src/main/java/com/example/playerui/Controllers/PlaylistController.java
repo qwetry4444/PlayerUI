@@ -94,6 +94,7 @@ public class PlaylistController implements Initializable {
         if (root != null) {
             RootController rootController = loader.getController();
             rootController.setCurrentSong(song, playlistId);
+            ViewSwitcher.setBottomPane(root);
         }
     }
 
