@@ -1,31 +1,32 @@
 package com.example.MusicPlayer;
 
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MusicPlayer {
     private final List<Song> songs;
-
-    public List<Playlist> getPlaylists() {
-        return playlists;
-    }
-
     private final List<Playlist> playlists;
     private int playlistCount;
     private int currentSongId;
-
-    public Song getCurrentSong() {
-        return currentSong;
-    }
-
     private Song currentSong;
     private int currentPlaylistId;
     private Playlist currentPlaylist;
     private final File playlistsDir;
+    private MediaPlayer player;
 
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+    public int getCurrentPlaylistId() { return currentPlaylistId; }
+    public Playlist getCurrentPlaylist() { return currentPlaylist; }
+    public Song getCurrentSong() {
+        return currentSong;
+    }
+    public int getCurrentSongId() { return currentSongId; }
     public List<Song> getSongs() {
         return songs;
     }
@@ -44,9 +45,9 @@ public class MusicPlayer {
         this.playlistCount = 0;
         this.currentSongId = -1;
         this.currentPlaylistId = -1;
-        this.playlistsDir = new File(getClass().getResource("/playlists").getPath());
-        loadSongsFromDir(getClass().getResource("/music/text").getPath());
-        loadPlaylistsFromDir(getClass().getResource("/playlists").getPath());
+        this.playlistsDir = new File(Objects.requireNonNull(getClass().getResource("/playlists")).getPath());
+        loadSongsFromDir(Objects.requireNonNull(getClass().getResource("/music/text")).getPath());
+        loadPlaylistsFromDir(Objects.requireNonNull(getClass().getResource("/playlists")).getPath());
     }
 
     public int playPlaylist(int playlistId){
@@ -59,27 +60,48 @@ public class MusicPlayer {
         return 0;
     }
 
-    public int playPlaylistSong(int playlistId, int songId){
+    public void playPlaylistSong(int playlistId, int songId){
         currentPlaylistId = playlistId;
         currentPlaylist = getPlaylistById(playlistId);
         currentSongId = songId;
         currentSong = getSongById(songId);
         if (currentPlaylist == null || currentSong == null || !currentPlaylist.getSongsId().contains(currentSongId)){
-            return 1;
+            return;
         }
-        playPlaylist(currentPlaylistId);
+        //playPlaylist(currentPlaylistId);
         playSong(currentSongId);
-        return 0;
     }
 
     public int playSong(int songId){
         currentSongId = songId;
         currentSong = getSongById(songId);
-        if (currentSong != null){
-            currentSong.play();
-            return 0;
+        if (currentSong == null){
+            return 1;
         }
-        return 1;
+        if (player != null){
+            player.stop();
+        }
+
+        Media sound = new Media(new File(currentSong.getFilePath()).toURI().toString());
+        player = new MediaPlayer(sound);
+        player.play();
+        return 0;
+    }
+
+    public void playOrStopSong(){
+        if (currentSong == null){
+            return;
+        }
+        if (player == null){
+            return;
+        }
+        if (player.getStatus() == MediaPlayer.Status.PLAYING){
+            player.pause();
+            return;
+        }
+        if (player.getStatus() == MediaPlayer.Status.PAUSED){
+            player.play();
+        }
     }
 
     public int playNext(){
@@ -89,7 +111,7 @@ public class MusicPlayer {
         }
         currentSongId = currentPlaylist.getNextSongId(currentSongId);
         currentSong = getSongById(currentSongId);
-        currentSong.play();
+        playSong(currentSongId);
         return 0;
     }
 
@@ -99,7 +121,7 @@ public class MusicPlayer {
         }
         currentSongId = currentPlaylist.getPrevSongId(currentSongId);
         currentSong = getSongById(currentSongId);
-        currentSong.play();
+        playSong(currentSongId);
         return 0;
     }
 
@@ -152,11 +174,10 @@ public class MusicPlayer {
         }
     }
 
-    public int deleteAllSongsFromPlaylistByIds(List<Integer> songsIds, int playlistId){
+    public void deleteAllSongsFromPlaylistByIds(List<Integer> songsIds, int playlistId){
         for (int songId : songsIds){
             deleteSongFromPlaylistById(playlistId, songId);
         }
-        return 1;
     }
 
     public int deleteSongFromPlaylistById(int playlistId, int songId){
@@ -192,7 +213,7 @@ public class MusicPlayer {
         try (FileReader fileReader = new FileReader(file);
              BufferedReader reader = new BufferedReader(fileReader))
         {
-            return new Song(songId, reader.readLine(), reader.readLine(), reader.readLine());
+            return new Song(songId, reader.readLine(), reader.readLine(), reader.readLine(), reader.readLine());
         }
         catch (IOException e) {
             throw new RuntimeException(e);

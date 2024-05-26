@@ -1,3 +1,4 @@
 Название2
 Исполнитель1
 Текст ла ла ла
+src/main/resources/music/mp3/1.mp3

@@ -10,6 +10,7 @@ module com.example.playerui {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires javafx.media;
 
     opens com.example.playerui to javafx.fxml;
     opens com.example.MusicPlayer to javafx.base;

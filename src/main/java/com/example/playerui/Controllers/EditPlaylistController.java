@@ -80,7 +80,9 @@ public class EditPlaylistController implements Initializable {
 
     @FXML
     void handleSaveButtonAction(ActionEvent event) {
+
         playlist.setName(playlistNameField.getText());
+        ViewSwitcher.switchTo(View.LIST_PLAYLISTS);
     }
 
     @FXML

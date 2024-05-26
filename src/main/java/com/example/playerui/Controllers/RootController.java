@@ -19,8 +19,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class RootController implements Initializable {
-    @FXML
-    private BorderPane mainPane;
 
     @FXML
     private Button playNextButton;
@@ -42,9 +40,7 @@ public class RootController implements Initializable {
 
     DataSingleton data;
 
-    public BorderPane getMainPane() {
-        return mainPane;
-    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         data = DataSingleton.getInstance();
@@ -82,17 +78,23 @@ public class RootController implements Initializable {
 
     @FXML
     void HandlePlayNextButtonAction(ActionEvent event) {
-        System.out.println("\n\n\n\n\n\n\n\n||||||||||||||||||||||||||||||||");
+        int currentSongId = data.musicPlayer().getCurrentSongId();
+        int nextSongId = data.musicPlayer().getCurrentPlaylist().getNextSongId(currentSongId);
+        setCurrentSong(data.musicPlayer().getSongById(nextSongId), data.musicPlayer().getCurrentPlaylistId());
+        //data.musicPlayer().playNext();
     }
 
     @FXML
     void HandlePlayPauseButtonAction(ActionEvent event) {
-
+        data.musicPlayer().playOrStopSong();
     }
 
     @FXML
     void HandlePlayPrevButtonAction(ActionEvent event) {
-
+        int currentSongId = data.musicPlayer().getCurrentSongId();
+        int prevSongId = data.musicPlayer().getCurrentPlaylist().getPrevSongId(currentSongId);
+        setCurrentSong(data.musicPlayer().getSongById(prevSongId), data.musicPlayer().getCurrentPlaylistId());
+        //data.musicPlayer().playNext();
     }
 
     @FXML
