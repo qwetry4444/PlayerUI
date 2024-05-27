@@ -90,7 +90,10 @@ public class PlaylistController implements Initializable {
     void playSong(Song song) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/playerui/root.fxml"));
         Parent root = loader.load();
+        songsTable.getSelectionModel().clearSelection();
+        songsTable.getSelectionModel().selectNext();
 
+        //songsTable.getSelectionModel().select(song);
         if (root != null) {
             RootController rootController = loader.getController();
             rootController.setCurrentSong(song, playlistId);
@@ -114,6 +117,16 @@ public class PlaylistController implements Initializable {
             songs.add(data.musicPlayer().getSongById(songId));
         }
         tableSongs.addAll(songs);
+    }
+
+    public void tableSelectNext(){
+        songsTable.getSelectionModel().clearSelection();
+        songsTable.getSelectionModel().selectNext();
+    }
+
+    public void tableSelectPrev(){
+        songsTable.getSelectionModel().clearSelection();
+        songsTable.getSelectionModel().selectPrevious();
     }
 //    @FXML
 //    void handleDeleteButtonAction(ActionEvent event) {

@@ -98,12 +98,19 @@ public class RootController implements Initializable {
     }
 
     @FXML
-    void HandlePlayNextButtonAction(ActionEvent event) {
+    void HandlePlayNextButtonAction(ActionEvent event) throws IOException {
         int currentSongId = data.musicPlayer().getCurrentSongId();
         int nextSongId = data.musicPlayer().getCurrentPlaylist().getNextSongId(currentSongId);
         setCurrentSong(data.musicPlayer().getSongById(nextSongId), data.musicPlayer().getCurrentPlaylistId());
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/playerui/playlist.fxml"));
+        //Parent root = loader.load();
+        //PlaylistController playlistController = loader.getController();
+
+        //playlistController.tableSelectNext();
         //data.musicPlayer().playNext();
     }
+
+
 
     @FXML
     void HandlePlayPauseButtonAction(ActionEvent event) {
@@ -111,10 +118,16 @@ public class RootController implements Initializable {
     }
 
     @FXML
-    void HandlePlayPrevButtonAction(ActionEvent event) {
+    void HandlePlayPrevButtonAction(ActionEvent event) throws IOException {
         int currentSongId = data.musicPlayer().getCurrentSongId();
         int prevSongId = data.musicPlayer().getCurrentPlaylist().getPrevSongId(currentSongId);
         setCurrentSong(data.musicPlayer().getSongById(prevSongId), data.musicPlayer().getCurrentPlaylistId());
+
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/playerui/playlist.fxml"));
+        //Parent root = loader.load();
+        //PlaylistController playlistController = loader.getController();
+
+        //playlistController.tableSelectPrev();
         //data.musicPlayer().playNext();
     }
 
