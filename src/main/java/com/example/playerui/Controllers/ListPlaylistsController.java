@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -80,6 +81,22 @@ public class ListPlaylistsController implements Initializable {
 
     }
 
+    @FXML
+    void handlePlayButtonAction(ActionEvent event) throws IOException{
+        Playlist selectedPlaylist = playlistsTable.getSelectionModel().getSelectedItems().getFirst();
+        data.musicPlayer().playPlaylist(selectedPlaylist.getId());
+        data.setPlaylistId(selectedPlaylist.getId());
+        ViewSwitcher.switchTo(View.PLAYLIST);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/playerui/root.fxml"));
+        Parent root = loader.load();
+
+        if (root != null) {
+            RootController rootController = loader.getController();
+            rootController.setCurrentSong(data.musicPlayer().getSongById(selectedPlaylist.getSongsId().getFirst()), selectedPlaylist.getId());
+            ViewSwitcher.setBottomPane(root);
+        }
+    }
 
 
     @FXML

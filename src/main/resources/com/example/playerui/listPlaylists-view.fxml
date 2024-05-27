@@ -63,7 +63,7 @@
             </HBox>
             <HBox alignment="TOP_CENTER" spacing="32.0">
                <children>
-                  <Button fx:id="deleteButton1" alignment="TOP_CENTER" minWidth="120.0" mnemonicParsing="false" text="Включить">
+                  <Button fx:id="playButton" onAction="#handlePlayButtonAction" alignment="TOP_CENTER" minWidth="120.0" mnemonicParsing="false" text="Включить">
                      <font>
                         <Font size="18.0" />
                      </font>

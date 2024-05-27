@@ -1,5 +1,9 @@
 package com.example.MusicPlayer;
 
+import com.example.playerui.Controllers.RootController;
+import com.example.playerui.ViewSwitcher;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -18,6 +22,8 @@ public class MusicPlayer {
     private MediaPlayer player;
 
 
+
+
     public List<Playlist> getPlaylists() {
         return playlists;
     }
@@ -30,14 +36,8 @@ public class MusicPlayer {
     public List<Song> getSongs() {
         return songs;
     }
+    public MediaPlayer getPlayer() { return player; }
 
-    public List<Integer> getSongsId(){
-        List<Integer> songsId = new ArrayList<>();
-        for (Song song : songs){
-            songsId.add(song.getId());
-        }
-        return songsId;
-    }
 
     public MusicPlayer(){
         this.songs = new ArrayList<>();
@@ -48,6 +48,23 @@ public class MusicPlayer {
         this.playlistsDir = new File(Objects.requireNonNull(getClass().getResource("/playlists")).getPath());
         loadSongsFromDir(Objects.requireNonNull(getClass().getResource("/music/text")).getPath());
         loadPlaylistsFromDir(Objects.requireNonNull(getClass().getResource("/playlists")).getPath());
+
+
+        player = createMediaPlayer(getSongs().getFirst().getFilePath());
+    }
+
+    private MediaPlayer createMediaPlayer(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            throw new IllegalArgumentException("File does not exist: " + filePath);
+        }
+
+        Media media = new Media(file.toURI().toString());
+        MediaPlayer player = new MediaPlayer(media);
+
+        player.setOnEndOfMedia(this::playNext);
+
+        return player;
     }
 
     public int playPlaylist(int playlistId){
@@ -82,8 +99,7 @@ public class MusicPlayer {
             player.stop();
         }
 
-        Media sound = new Media(new File(currentSong.getFilePath()).toURI().toString());
-        player = new MediaPlayer(sound);
+        player = createMediaPlayer(currentSong.getFilePath());
         player.play();
         return 0;
     }
@@ -104,7 +120,7 @@ public class MusicPlayer {
         }
     }
 
-    public int playNext(){
+    public int playNext() {
         if (currentPlaylist == null){
 //            System.out.println("Сначала выберите плейлист");
             return 1;
@@ -112,6 +128,7 @@ public class MusicPlayer {
         currentSongId = currentPlaylist.getNextSongId(currentSongId);
         currentSong = getSongById(currentSongId);
         playSong(currentSongId);
+
         return 0;
     }
 
@@ -328,14 +345,14 @@ public class MusicPlayer {
         return null;
     }
 
-    public List<Integer> getSongsNotInPlaylistId(int playlistId){
-        List<Integer> playlistSongs = getPlaylistById(playlistId).getSongsId();
-        List<Integer> notInPlaylistSongs = getSongsId();
-        for (int playlistSongId : playlistSongs){
-            notInPlaylistSongs.remove(playlistSongId);
-        }
-        return notInPlaylistSongs;
-    }
+//    public List<Integer> getSongsNotInPlaylistId(int playlistId){
+//        List<Integer> playlistSongs = getPlaylistById(playlistId).getSongsId();
+//        List<Integer> notInPlaylistSongs = getSongsId();
+//        for (int playlistSongId : playlistSongs){
+//            notInPlaylistSongs.remove(playlistSongId);
+//        }
+//        return notInPlaylistSongs;
+//    }
 
     public List<Song> getNotInPlaylistSongs(int playlistId){
         List<Integer> playlistSongs = getPlaylistById(playlistId).getSongsId();

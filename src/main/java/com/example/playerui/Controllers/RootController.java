@@ -12,11 +12,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import javafx.util.Duration;
+
+import static jdk.jfr.internal.Utils.formatDuration;
+
 
 public class RootController implements Initializable {
 
@@ -37,6 +43,9 @@ public class RootController implements Initializable {
 
     @FXML
     private Label songName;
+
+    @FXML
+    private Label songDuration;
 
     DataSingleton data;
 
@@ -68,12 +77,24 @@ public class RootController implements Initializable {
         return imageView;
     }
 
-    void setCurrentSong(Song song, int playlistId) {
+    public void setCurrentSong(Song song, int playlistId) {
         if (song != null) {
             songName.setText(song.getName());
             songArtist.setText(song.getArtist());
             data.musicPlayer().playPlaylistSong(playlistId, song.getId());
+            //songDuration.setText(data.musicPlayer().getPlayer().getStopTime().toString());
+            data.musicPlayer().getPlayer().setOnReady(() -> {
+                Duration duration = data.musicPlayer().getPlayer().getMedia().getDuration();
+                songDuration.setText(formatDuration(duration));
+            });
         }
+    }
+    public String formatDuration(Duration time){
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append((int)time.toMinutes());
+        stringBuilder.append(" :  ");
+        stringBuilder.append((int)time.toSeconds() % 60);
+        return stringBuilder.toString();
     }
 
     @FXML
@@ -99,7 +120,7 @@ public class RootController implements Initializable {
 
     @FXML
     void HandleRepeatButtonAction(ActionEvent event) {
-
+        setCurrentSong(data.musicPlayer().getCurrentSong(), data.musicPlayer().getCurrentPlaylistId());
     }
 
 }

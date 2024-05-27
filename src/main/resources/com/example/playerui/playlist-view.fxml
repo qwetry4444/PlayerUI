@@ -60,18 +60,18 @@
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                </columnResizePolicy>
             </TableView>
-            <HBox alignment="TOP_CENTER" spacing="32.0">
-               <children>
-                  <Button fx:id="playButton" minWidth="120.0" mnemonicParsing="false" text="Включить">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                     </padding>
-                  </Button>
-               </children>
-            </HBox>
+<!--            <HBox alignment="TOP_CENTER" spacing="32.0">-->
+<!--               <children>-->
+<!--                  <Button fx:id="playButton" minWidth="120.0" mnemonicParsing="false" text="Включить">-->
+<!--                     <font>-->
+<!--                        <Font size="18.0" />-->
+<!--                     </font>-->
+<!--                     <padding>-->
+<!--                        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />-->
+<!--                     </padding>-->
+<!--                  </Button>-->
+<!--               </children>-->
+<!--            </HBox>-->
          </children>
       </VBox>
    </children>
